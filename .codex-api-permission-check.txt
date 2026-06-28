@@ -1,0 +1,3 @@
+Codex API write permission check.
+Date: 2026-06-28
+Repository: CezaryZal/OneGoal---OnBoardingAI
