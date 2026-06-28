@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cel Dnia</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="app-title">
+        <div>
+          <p class="eyebrow">Jeden konkretny krok dziennie</p>
+          <h1 id="app-title">Cel Dnia</h1>
+          <p class="hero-copy">
+            Zapisz najważniejszy cel na dziś, wróć wieczorem i oznacz, czy został wykonany.
+          </p>
+        </div>
+        <div class="today-pill" aria-live="polite">
+          <span>Dzisiaj</span>
+          <strong id="todayLabel"></strong>
+        </div>
+      </section>
+
+      <section class="auth-panel" id="authPanel" aria-labelledby="auth-heading">
+        <div>
+          <p class="eyebrow">Profil użytkownika</p>
+          <h2 id="auth-heading">Zaloguj się albo utwórz konto</h2>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Tryb formularza">
+          <button type="button" class="auth-tab active" id="loginTab">Logowanie</button>
+          <button type="button" class="auth-tab" id="registerTab">Rejestracja</button>
+        </div>
+
+        <form class="auth-form" id="authForm">
+          <label for="loginInput">Login</label>
+          <input
+            type="text"
+            id="loginInput"
+            name="login"
+            autocomplete="username"
+            minlength="3"
+            maxlength="32"
+            required
+          />
+
+          <label for="passwordInput">Hasło</label>
+          <input
+            type="password"
+            id="passwordInput"
+            name="password"
+            autocomplete="current-password"
+            minlength="3"
+            maxlength="64"
+            required
+          />
+
+          <button type="submit" class="primary-action" id="authSubmit">Zaloguj</button>
+          <p class="form-message" id="authMessage" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="profile-bar" id="profileBar" hidden>
+        <div>
+          <span>Zalogowano jako</span>
+          <strong id="currentUserLabel"></strong>
+        </div>
+        <button type="button" class="ghost-action" id="logoutButton">Wyloguj</button>
+      </section>
+
+      <section class="layout" aria-label="Panel aplikacji">
+        <article class="goal-panel" aria-labelledby="goal-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Dzisiejszy cel</p>
+              <h2 id="goal-heading">Co chcesz dziś dowieźć?</h2>
+            </div>
+            <span class="status-badge" id="goalStatus">Brak celu</span>
+          </div>
+
+          <form class="goal-form" id="goalForm">
+            <label for="goalInput">Cel na wybrany dzień</label>
+            <textarea
+              id="goalInput"
+              name="goal"
+              rows="4"
+              maxlength="180"
+              placeholder="Np. stworzyć pierwszy widok aplikacji albo zrobić 30 minut nauki"
+              required
+            ></textarea>
+            <div class="form-row">
+              <label class="date-field" for="goalDate">
+                Data
+                <input type="date" id="goalDate" name="date" />
+              </label>
+              <button type="submit" class="primary-action" id="saveGoalButton">Zapisz cel</button>
+            </div>
+          </form>
+
+          <div class="current-goal" id="currentGoal" hidden>
+            <p class="goal-date" id="selectedDateLabel"></p>
+            <p class="goal-text" id="goalText"></p>
+            <div class="actions" aria-label="Status celu">
+              <button type="button" class="success-action" id="doneButton">Zrobione</button>
+              <button type="button" class="danger-action" id="missedButton">Niezrobione</button>
+              <button type="button" class="ghost-action" id="editButton">Edytuj</button>
+            </div>
+          </div>
+        </article>
+
+        <aside class="summary-panel" aria-labelledby="summary-heading">
+          <p class="eyebrow">Podsumowanie</p>
+          <h2 id="summary-heading">Postęp</h2>
+          <div class="stats-grid">
+            <div class="stat">
+              <span>Seria</span>
+              <strong id="currentStreak">0</strong>
+              <small>dni pod rząd</small>
+            </div>
+            <div class="stat">
+              <span>Najdłuższa seria</span>
+              <strong id="bestStreak">0</strong>
+              <small>dni</small>
+            </div>
+            <div class="stat">
+              <span>Skuteczność</span>
+              <strong id="completionRate">0%</strong>
+              <small>z ocenionych dni</small>
+            </div>
+          </div>
+
+          <div class="week-box">
+            <div class="week-heading">
+              <span>Ostatnie 7 dni</span>
+              <strong id="weekScore">0/7</strong>
+            </div>
+            <div class="week-strip" id="weekStrip" aria-label="Status z ostatnich 7 dni"></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="history-panel" aria-labelledby="history-heading">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Historia</p>
+            <h2 id="history-heading">Ostatnie cele</h2>
+          </div>
+          <button type="button" class="ghost-action" id="clearButton">Wyczyść dane</button>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </section>
+    </main>
+
+    <template id="historyItemTemplate">
+      <article class="history-item">
+        <div>
+          <time></time>
+          <p></p>
+        </div>
+        <span></span>
+      </article>
+    </template>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
